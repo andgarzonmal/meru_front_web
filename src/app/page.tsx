@@ -1,4 +1,5 @@
 "use client"
+
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -12,7 +13,7 @@ export default function Welcome() {
     <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-gradient-to-r from-blue-500 to-indigo-500">
       <h1 className="text-5xl font-bold text-white mb-4">Welcome to Our Application!</h1>
       <p className="text-lg text-white text-center max-w-2xl">
-        We're glad to have you here. Explore the app to find out more about what we offer.
+        We&apos;re glad to have you here. Explore the app to find out more about what we offer.
       </p>
       <button
         onClick={() => router.push('/products')}
@@ -23,3 +24,4 @@ export default function Welcome() {
     </main>
   );
 }
+
