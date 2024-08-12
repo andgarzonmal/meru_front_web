@@ -1,5 +1,5 @@
-"use client"
-
+"use client";
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -14,6 +14,7 @@ const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
   const { login } = useAuth();
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
@@ -23,18 +24,31 @@ const LoginForm = () => {
           password: data.password,
         }
       });
+
       const token = response.headers['authorization'];
       if (token) {
         login(token);
         router.push('/welcome');  // Redirigir a la página de bienvenida
       }
-    } catch (error) {
-      alert('Error en el login');
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        console.log("Mensaje de error:", error.response.data);
+        setErrorMessage(error.response.data); // Mensaje de error de la API
+      } else {
+        setErrorMessage('An unexpected error occurred during login'); // Mensaje genérico
+        console.log("Mensaje de error genérico");
+      }
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto mt-10 p-6 border rounded-lg shadow-lg bg-white">
+      <h1 className="text-2xl font-bold mb-4">Login</h1>
+      {errorMessage && (
+        <div className="mb-4 p-4 text-red-700 bg-red-200 border border-red-700 rounded">
+          {errorMessage}
+        </div>
+      )}
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
           Email

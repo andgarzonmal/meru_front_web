@@ -32,7 +32,7 @@ const SignupForm = () => {
       const token = response.headers['authorization'];
       if (token) {
         login(token);
-        router.push('/welcome');  // Redirigir a la página de bienvenida
+        router.push('/welcome');  
       }
     } catch (error) {
       alert('Error en el signup');
