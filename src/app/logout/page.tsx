@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Asegúrate de estar importando desde 'next/navigation'
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/Authcontext';
 
 const LogoutPage = () => {
